@@ -122,7 +122,7 @@ print(gcf,'-dpng','-r1080','Figure2.Introductory experiment.jpg');
 %%                 Section 4.1: Baseline Model
 clear; clc;
 load settings_simple.mat;
-[sim_W,~,~] = fit_sim(W0,0,0,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
+[sim_W,~,~] = fit_sim(W0,0,0,0,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
 sort_W = sort(sim_W);
 %------Final top and bottom shares
 top_share_base=sum(sort_W(npel*(1-top)+1:npel,nper),1)/sum(sort_W(:,nper),1);
@@ -156,9 +156,9 @@ Shorrocks_S(k,1) = (Mob_dim-trace(mob_mat(:,:,k)))/(Mob_dim-1);  % Static Shorro
 %                 Section 4.2: Income Tax Model
 tax_upper = tax*(1+upper);
 tax_lower = tax*(1-lower);
-[sim_W,~,~] = fit_sim(W0,0,0,1,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
-[sim_W_upper,~,~] = fit_sim(W0,0,0,1,0,Y,nper,C0,C1,beta1,sigma,growth,tax_upper,allowance);
-[sim_W_lower,~,~] = fit_sim(W0,0,0,1,0,Y,nper,C0,C1,beta1,sigma,growth,tax_lower,allowance);
+[sim_W,~,~] = fit_sim(W0,0,0,1,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
+[sim_W_upper,~,~] = fit_sim(W0,0,0,1,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax_upper,allowance);
+[sim_W_lower,~,~] = fit_sim(W0,0,0,1,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax_lower,allowance);
 sort_W = sort(sim_W);
 sort_W_upper = sort(sim_W_upper);
 sort_W_lower = sort(sim_W_lower);
@@ -195,9 +195,9 @@ end
 Shorrocks_S(k,1) = (Mob_dim-trace(mob_mat(:,:,k)))/(Mob_dim-1);  % Static Shorrocks Index
 %--------------------------------------------------------------------------
 %                 Section 4.3: Constant Growth Model
-[sim_W,~,~] = fit_sim(W0,0,1,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
-[sim_W_upper,~,~] = fit_sim(W0,0,1,0,0,Y,nper,C0,C1,beta1,sigma,G_upper,tax,allowance);
-[sim_W_lower,~,~] = fit_sim(W0,0,1,0,0,Y,nper,C0,C1,beta1,sigma,G_lower,tax,allowance);
+[sim_W,~,~] = fit_sim(W0,0,1,0,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
+[sim_W_upper,~,~] = fit_sim(W0,0,1,0,0,0,Y,nper,C0,C1,beta1,sigma,G_upper,tax,allowance);
+[sim_W_lower,~,~] = fit_sim(W0,0,1,0,0,0,Y,nper,C0,C1,beta1,sigma,G_lower,tax,allowance);
 sort_W = sort(sim_W);
 sort_W_upper = sort(sim_W_upper);
 sort_W_lower = sort(sim_W_lower);
@@ -236,9 +236,9 @@ Shorrocks_S(k,1) = (Mob_dim-trace(mob_mat(:,:,k)))/(Mob_dim-1);  % Static Shorro
 %                 Section 4.4: Human Capital Model
 beta1_upper = beta1*(1+upper);
 beta1_lower = beta1*(1-lower);
-[sim_W,~,~]  = fit_sim(W0,1,0,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
-[sim_W_upper,~,~] = fit_sim(W0,1,0,0,0,Y,nper,C0,C1,beta1_upper,sigma,growth,tax,allowance);
-[sim_W_lower,~,~] = fit_sim(W0,1,0,0,0,Y,nper,C0,C1,beta1_lower,sigma,growth,tax,allowance);
+[sim_W,~,~]  = fit_sim(W0,1,0,0,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
+[sim_W_upper,~,~] = fit_sim(W0,1,0,0,0,0,Y,nper,C0,C1,beta1_upper,sigma,growth,tax,allowance);
+[sim_W_lower,~,~] = fit_sim(W0,1,0,0,0,0,Y,nper,C0,C1,beta1_lower,sigma,growth,tax,allowance);
 sort_W = sort(sim_W);
 sort_W_upper = sort(sim_W_upper);
 sort_W_lower = sort(sim_W_lower);
@@ -276,7 +276,7 @@ Shorrocks_S(k,1) = (Mob_dim-trace(mob_mat(:,:,k)))/(Mob_dim-1);  % Static Shorro
 %--------------------------------------------------------------------------
 %                 Section 4.5: Physical Capital Model
 % As no investment rate is involved, do not consider the upper & lower bounds
-[sim_W,~,~] = fit_sim(W0,0,0,0,1,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
+[sim_W,~,~] = fit_sim(W0,0,0,0,1,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
 sort_W = sort(sim_W);
 % Final top and bottom shares
 top_share_invest = sum(sort_W(npel*(1-top)+1:npel,nper),1)/sum(sort_W(:,nper),1);
@@ -391,7 +391,7 @@ mob_mov = zeros(NT_sim,Mob_dim);  % Mobility probabilities of the quintiles exce
 for ss=1:NT_sim
 mob_mat = zeros(Mob_dim,Mob_dim,5);   % Social Mobility matrix (mid to end)    
 allowance = 0+(ss-1)*0.01;            % Tax allowance relative to income
-[sim_W,~,~] = fit_sim(W0,0,0,1,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
+[sim_W,~,~] = fit_sim(W0,0,0,1,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
 sort_W = sort(sim_W);
 sort_mid = sortrows(sim_W,mid_per);
 sort_mid_nper = sort_mid(:,nper); % End-period wealth sorted by mid-period wealth
@@ -480,7 +480,7 @@ mob_mov = zeros(NT_sim,Mob_dim);
 for ss=1:NT_sim
 mob_mat = zeros(Mob_dim,Mob_dim,5);   % Social Mobility matrix (mid to end)    
 tax = 0+(ss-1)*0.001;                 % Proportional income tax rate
-[sim_W,~,~] = fit_sim(W0,0,0,1,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
+[sim_W,~,~] = fit_sim(W0,0,0,1,0,0,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance);
 sort_W = sort(sim_W);
 sort_mid = sortrows(sim_W,mid_per);
 sort_mid_nper = sort_mid(:,nper); % End-period wealth sorted by mid-period wealth
@@ -599,11 +599,12 @@ end
 end
 
 %==========================================================================
-% Function 2: Simulate data using the Single-factor Model                        
-function[WE,ICM,ICM2]=fit_sim(W0,M1,M2,M3,M4,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance)
+% Function 2: Simulate data using the Single-factor Model
+function[WE,ICM,ICM2]=fit_sim(W0,M1,M2,M3,M4,M5,Y,nper,C0,C1,beta1,sigma,growth,tax,allowance)
 % NEW INPUT----------------------------------------------------------------
 % M1:Labour model, M2:Growth model, M3:Tax model, M4:Capital model
 % Mi can take on two values, "1" means being considered while "0" means not
+% M5:Rent-seeking agents scenario (1% of agents receive privileges)
 % W0:        Initial wealth at the begining of period 1
 % nper:      Number of periods
 % c0:        Individual constant consumption level (lower bound)
@@ -621,9 +622,15 @@ ICM  = zeros(npel,nper);   % Individual total income
 ICM2 = zeros(npel,nper);   % Individual income before transfer revenue
 WB(:,1)   = W0(:,1);
 
+rent_mask = false(npel,1);
+if M5==1
+   rent_count = max(1,ceil(0.01*npel));
+   rent_mask(1:rent_count,1) = true;
+end
+
 rng(1);  % Fix the time seed for random generator (this syntax is newest)
-if M1==1 
-   effort = normrnd(0,sigma,npel,1); 
+if M1==1
+   effort = normrnd(0,sigma,npel,1);
 else
    effort = zeros(npel,1);
 end
@@ -633,21 +640,28 @@ else
    G = 0.0;
 end
 for j=1:nper
-    num_sub = sum(WB(:,j)<(C0*(1+G)^(j-1))); % Number of agents who need subsidy    
+    needs_subsidy = WB(:,j)<(C0*(1+G)^(j-1));
+    num_sub = sum(needs_subsidy); % Number of agents who need subsidy
 % Round 1: Subsidy the very poor
     y1 = zeros(npel,1);
     for i=1:npel
-        if WB(i,j) < C0*(1+G)^(j-1)             
-           y1(i,1) = C0*(1+G)^(j-1);       % The 1st part of income         
+        if (M5==1 && rent_mask(i,1)) || WB(i,j) < C0*(1+G)^(j-1)
+           y1(i,1) = C0*(1+G)^(j-1);       % The 1st part of income
         end
-    end    
+    end
 % Round 2: Distribute the rest output
     if M3==1
        T = tax;
     else
        T = 0;
-    end    
-    rest = Y*(1+G)^(j-1) - num_sub*C0*(1+G)^(j-1);    
+    end
+    if M5==1
+       additional_rent = sum(rent_mask & ~needs_subsidy);
+    else
+       additional_rent = 0;
+    end
+    rest = Y*(1+G)^(j-1) - (num_sub+additional_rent)*C0*(1+G)^(j-1);
+    rest = max(rest,0);
 % Creates probabilities determined by Human Capital
     rawprob = zeros(npel,1);
     rawprob(:,1) = 1 - 1./(ones(npel,1)+exp(ones(npel,1)*log(1/(npel-1))+beta1*effort));
@@ -679,14 +693,17 @@ for j=1:nper
         if y2(i,1)==0.0
            taxpay(i,1) = 0.0;
         else
-           if y1(i,1)+y2(i,1)>allowance*(Y*(1+G)^(j-1)/npel) 
+           if y1(i,1)+y2(i,1)>allowance*(Y*(1+G)^(j-1)/npel)
               taxpay(i,1) = (y1(i,1)+y2(i,1)-allowance*(Y*(1+G)^(j-1)/npel))*T;
            else
               taxpay(i,1) = 0.0;
            end
-        end    
-    end   
-    Taxall = sum(taxpay);     
+        end
+        if M5==1 && rent_mask(i,1)
+           taxpay(i,1) = taxpay(i,1)*(1-0.73);
+        end
+    end
+    Taxall = sum(taxpay);
 %------3rd, transfer the total tax revenue to agents identically
     ICM(:,j) = y1 + y2 - taxpay + Taxall/npel;     % Total income 
     ICM2(:,j)= y2 - taxpay + Taxall/npel;          % Income before transfer   
